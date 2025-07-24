@@ -1,0 +1,91 @@
+[package]
+name = "rust_concepts"
+version = "0.2.0"
+edition = "2024"  # ใช้ edition ล่าสุด Rust 2024
+authors = ["Rust Learning Project"]
+description = "โปรเจค Rust learning ที่สุดยอด - ครอบคลุมแนวคิดทั้งหมด 10 บท"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/yourusername/rust_concepts"
+keywords = ["rust", "learning", "tutorial", "concepts", "thai"]
+categories = ["development-tools"]
+readme = "README.md"
+rust-version = "1.88.0"  # กำหนด minimum Rust version
+
+[dependencies]
+# เพิ่ม dependencies ที่เป็นประโยชน์สำหรับการเรียนรู้
+serde = { version = "1.0", features = ["derive"] }  # สำหรับ serialization
+clap = { version = "4.5", features = ["derive"] }   # สำหรับ CLI arguments
+anyhow = "1.0"                                      # สำหรับ error handling
+thiserror = "1.0"                                   # สำหรับ custom errors
+rand = "0.8"                                        # สำหรับ random numbers
+chrono = { version = "0.4", features = ["serde"] }  # สำหรับ date/time
+
+# Additional dependencies for examples
+dirs = "5.0"                                        # สำหรับ directory operations
+tempfile = "3.0"                                    # สำหรับ temporary files
+axum = "0.7"                                        # Web framework
+tokio = { version = "1.0", features = ["full"] }   # Async runtime
+tower = "0.4"                                       # Service abstractions
+tower-http = { version = "0.5", features = ["cors"] } # HTTP middleware
+tracing-subscriber = "0.3"                         # Logging
+uuid = { version = "1.0", features = ["v4", "serde"] } # UUID generation
+serde_json = "1.0"                                  # JSON serialization
+futures = "0.3"                                     # สำหรับ async utilities
+quickcheck = { version = "1.0", optional = true }   # สำหรับ property testing
+proptest = { version = "1.0", optional = true }     # สำหรับ property-based testing
+
+# Machine Learning dependencies
+ndarray = "0.15"                                     # สำหรับ numerical arrays
+linfa = "0.7"                                        # Machine learning toolkit
+linfa-clustering = "0.7"                             # Clustering algorithms
+linfa-linear = "0.7"                                 # Linear models
+plotters = "0.3"                                     # สำหรับ plotting (optional)
+
+# Blockchain dependencies
+sha2 = "0.10"                                        # SHA-256 hashing
+hmac = "0.12"                                        # HMAC for signatures
+base64 = "0.22"                                      # Base64 encoding
+hex = "0.4"                                          # Hex encoding
+
+[dev-dependencies]
+# Dependencies สำหรับ development และ testing
+criterion = { version = "0.5", features = ["html_reports"] }  # สำหรับ benchmarking
+proptest = "1.0"                                              # สำหรับ property-based testing
+
+# การตั้งค่า linting (เพื่อให้โค้ดสะอาด!) - อัพเดท 2025
+[lints.rust]
+unused_imports = "warn"      # เตือนเมื่อมี import ที่ไม่ใช้
+unused_variables = "warn"    # เตือนเมื่อมีตัวแปรที่ไม่ใช้
+dead_code = "warn"           # เตือนเมื่อมีโค้ดที่ไม่ได้ใช้
+unused_mut = "warn"          # เตือนเมื่อมี mut ที่ไม่จำเป็น (ใหม่ 2025!)
+unreachable_code = "warn"    # เตือนเมื่อมีโค้ดที่ไม่สามารถเข้าถึงได้ (ใหม่ 2025!)
+
+[lints.clippy]
+all = "warn"                 # เปิดการเตือนทั้งหมด
+pedantic = "warn"            # เปิดโหมดจู้จี้จุกจิก
+nursery = "warn"             # เปิดฟีเจอร์ทดลอง
+cargo = "warn"               # ตรวจสอบ Cargo.toml (ใหม่ 2025!)
+perf = "warn"                # ตรวจสอบประสิทธิภาพ (ใหม่ 2025!)
+style = "warn"               # ตรวจสอบรูปแบบโค้ด (ใหม่ 2025!)
+complexity = "warn"          # ตรวจสอบความซับซ้อน (ใหม่ 2025!)
+correctness = "warn"         # ตรวจสอบความถูกต้อง (ใหม่ 2025!)
+suspicious = "warn"          # ตรวจสอบโค้ดที่น่าสงสัย (ใหม่ 2025!)
+
+# การตั้งค่า profile สำหรับ optimization
+[profile.dev]
+opt-level = 0                # ไม่ optimize เพื่อ compile เร็ว
+debug = true                 # เปิด debug info
+overflow-checks = true       # เปิดการตรวจสอบ overflow
+
+[profile.release]
+opt-level = 3                # optimize สูงสุด
+lto = true                   # เปิด Link Time Optimization
+codegen-units = 1            # ใช้ codegen unit เดียวเพื่อ optimize ดีขึ้น
+panic = "abort"              # abort แทน unwind เมื่อ panic
+strip = true                 # ลบ debug symbols ใน release build
+
+# ตัวอย่างการตั้งค่า benchmark
+[[bench]]
+name = "performance_bench"
+harness = false
+path = "benches/performance.rs"
